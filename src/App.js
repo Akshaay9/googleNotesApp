@@ -1,34 +1,16 @@
-import React,{useState} from 'react'
-import "./app.scss"
-import Cart from './Cart'
-import ProductList from './ProductList'
-import { data } from "./data";
-function App() {
-  const [showCart, setShowCart] = useState(false)
-  const [cartItems, setCartItems] = useState([])
-  const [productData, setProductData] = useState(data);
+import React from "react";
+import "./app.scss";
 
+import { Suspense, lazy } from "react";
+const Artists = lazy(() => import("./Artists"));
+function App() {
   return (
-    <>
-    <div className="cartBtn">
-      <button className="cart" onClick={()=>setShowCart(!showCart)}>Cart</button>
-      </div>
-      <Cart 
-        showCart={showCart}
-        setShowCart={setShowCart}
-        cartItems={cartItems}
-        setCartItems={setCartItems}
-        productData={productData}
-        setProductData={setProductData}
-      />
-      <ProductList
-        setCartItems={setCartItems}
-        cartItems={cartItems}
-        productData={productData}
-        setProductData={setProductData}
-      />
-      </>
-  )
+    <div className="App">
+    <Suspense fallback={<h1>Loading</h1>}> <Artists /></Suspense>
+             
+             
+    </div>
+  );
 }
 
-export default App
+export default App;
